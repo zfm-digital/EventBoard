@@ -1,0 +1,19 @@
+services:
+  pgsql:
+    image: postgres:17
+    ports:
+      - '${FORWARD_DB_PORT:-5432}:5432'
+    environment:
+      POSTGRES_DB: '${DB_DATABASE:-eventboard}'
+      POSTGRES_USER: '${DB_USERNAME:-eventboard}'
+      POSTGRES_PASSWORD: '${DB_PASSWORD:-secret}'
+    volumes:
+      - pgsql-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U ${DB_USERNAME:-eventboard} -d ${DB_DATABASE:-eventboard}']
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  pgsql-data:
