@@ -44,7 +44,6 @@ If you prefer to run each step individually:
 composer install
 
 # Copy environment file and generate app key
-cp .env.example .env
 php artisan key:generate
 
 # Run database migrations (SQLite by default)
